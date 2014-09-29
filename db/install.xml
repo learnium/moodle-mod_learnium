@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/learnium/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/learnium"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="learnium" COMMENT="Default comment for learnium, please edit me">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course learnium activity belongs to" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances" PREVIOUS="course" NEXT="intro"/>
+        <FIELD NAME="intro" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the learnium activity" PREVIOUS="name" NEXT="introformat"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="introformat" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated" NEXT="site"/>
+        <FIELD NAME="site" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="site field for moodle instances" PREVIOUS="timemodified" NEXT="bridgeid"/>
+        <FIELD NAME="bridgeid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="bridgeid field for moodle instances" PREVIOUS="site" NEXT="secret"/>
+        <FIELD NAME="secret" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="secret field for moodle instances" PREVIOUS="bridgeid" NEXT="groupid"/>
+        <FIELD NAME="groupid" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="groupid field for moodle instances" PREVIOUS="secret"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+  </TABLE>
+  <TABLE NAME="learniumusers" COMMENT="Default comment for learnium, please edit me">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Moodle user" PREVIOUS="id" NEXT="bridgeid"/>
+        <FIELD NAME="bridgeid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="bridgeid field for moodle instances" PREVIOUS="userid" NEXT="usergbid"/>
+        <FIELD NAME="usergbid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="usergbid field for moodle instances" PREVIOUS="bridgeid" NEXT="accesstoken"/>
+        <FIELD NAME="secret" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="secret field for moodle instances" PREVIOUS="usergbid" NEXT="accesstoken"/>
+        <FIELD NAME="accesstoken" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="accesstoken field for moodle instances" PREVIOUS="usergbid"/>
+    </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
